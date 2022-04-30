@@ -29,7 +29,7 @@ python evaluate_test.py --dataset_name sst-2 --base_model bert --model_card echa
 ```
 </br>
 
-To perform adversaril attack over the model (with Textbugger Black-box), run the following sample code
+To perform adversaril attack over the model (example run with Textbugger Black-box), run the following sample code
 ```
 python perform_attack.py --dataset_name sst-2 --base_model bert --model_card echarlaix/bert-base-uncased-sst2-acc91.1-d37-hybrid
 ```
