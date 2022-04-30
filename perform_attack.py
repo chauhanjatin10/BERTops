@@ -142,9 +142,7 @@ def run_attacker(args):
 
 	attack_eval = OurInvokeLimitedAttackEval(attacker, victim, **options)
 	result, success_list = attack_eval.generate_adv(data_)
-	print("\nsuccess rate = ", sum(success_list)/len(success_list), "\n")
-
-	write_attack_res_to_file(args, result, success_list)
+	print("\nAttack success rate = ", sum(success_list)/len(success_list), "\n")
 
 
 if __name__ == '__main__':
