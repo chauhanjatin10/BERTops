@@ -1,0 +1,6 @@
+pytorch==1.7.0+cu101
+ripser==0.6.1
+transformers==4.15.0
+datasets==1.17.0
+OpenAttack==1.1.0
+tensorflow_text==2.8.2

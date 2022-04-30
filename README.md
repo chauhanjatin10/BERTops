@@ -5,11 +5,8 @@ Topological Lens]() accepted at [IJCNN 2022]() as on **Oral** Presentation.
 ## Usage
 
 ### Requirements
-* [pytorch](https://pytorch.org/)
-* [ripser](https://ripser.scikit-tda.org/en/latest/)
-* [transformers](https://huggingface.co/docs/transformers/installation)
-* [datasets](https://huggingface.co/docs/datasets/installation)
-</br>
+Provided in [requirements.txt](requirements.txt) file
+</br></br>
 
 ### Sample usage for SST-2 dataset
 
@@ -31,6 +28,11 @@ To evaluate (compute test accuracy) the model, run the following sample code
 python evaluate_test.py --dataset_name sst-2 --base_model bert --model_card echarlaix/bert-base-uncased-sst2-acc91.1-d37-hybrid
 ```
 </br>
+
+To perform adversaril attack over the model (with Textbugger Black-box), run the following sample code
+```
+
+```
 
 ## Citation
 

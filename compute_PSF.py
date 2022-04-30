@@ -20,6 +20,7 @@ def obtain_enhanced_neural_pers(dim_0, dim_1, concatenated, p, q):
 	if dim_0.shape[0]>0:
 		non_inf_vals = np.where(dim_0[:, 1] < 1e6)[0]
 		desired_ = dim_0[non_inf_vals]
+		desired_ = desired_ / np.max(desired_)
 		term1 = np.absolute(np.power(desired_[:, 1] - desired_[:, 0], p))
 		term2 = np.absolute(np.power((desired_[:, 1] + desired_[:, 0])/2, q))
 		enhanced_neural_pers_dim_0 = np.power(np.sum(term1 * term2), 1)
@@ -30,6 +31,7 @@ def obtain_enhanced_neural_pers(dim_0, dim_1, concatenated, p, q):
 	if dim_1.shape[0] > 0:
 		non_inf_vals = np.where(dim_1[:, 1] < 1e6)[0]
 		desired_ = dim_1[non_inf_vals]
+		desired_ = desired_ / np.max(desired_)
 		term1 = np.absolute(np.power(desired_[:, 1] - desired_[:, 0], p))
 		term2 = np.absolute(np.power((desired_[:, 1] + desired_[:, 0])/2, q))
 		enhanced_neural_pers_dim_1 = np.power(np.sum(term1 * term2), 1)

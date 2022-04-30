@@ -2,6 +2,7 @@ import argparse
 import numpy as np
 import torch
 from datasets import load_dataset
+import math, random
 
 
 def str2bool(v):
@@ -24,7 +25,6 @@ def parse_arguments():
 	parser.add_argument('--eval_bs', type=int, default=48, help="batch size during testing/evaluation")
 
 	# adv attack
-	parser.add_argument('--attack_name', type=str, default="pwws")
 	parser.add_argument('--num_examples_for_attack', type=int, default=1000)
 	parser.add_argument('--invoke_limit', type=int, default=2000)
 
@@ -54,31 +54,18 @@ class LoadData:
 		self.test_ds_sents = [sent["text"] for sent in self.test_ds]
 		self.test_ds_labels = [sent["label"] for sent in self.test_ds]
 
-	def save_random_sentences_for_attack(self):
+	def fetch_random_sentences_for_attack(self):
 		random_subset = []
 		separation = self.classwise_separation(self.test_ds)
 		examples_per_class = math.ceil(self.arguments.num_examples_for_attack / len(separation.keys()))
 
 		for key in separation.keys():
 			random.shuffle(separation[key])
-			if self.arguments.count_sents == 2:
-				random_subset.extend( [ (sent[0], sent[1], key) for sent in separation[key][:examples_per_class] ] )
-			elif self.arguments.count_sents == 1:
-				random_subset.extend( [ (sent, key) for sent in separation[key][:examples_per_class] ] )
+			random_subset.extend( [ (sent, key) for sent in separation[key][:examples_per_class] ] )
 
-		print("Number of random sentences saved = ", len(random_subset))
+		print("Number of random sentences fetched = ", len(random_subset))
 		dict_ = {"original_sentences": random_subset}
-
-		dirname = 'attack_saved_sentences/{0}/{1}/'.format(self.arguments.base_model,
-							self.arguments.dataset_name)
-		import os
-		if not os.path.exists(dirname):
-			os.makedirs(dirname)
-
-		import pickle
-		save_file_name = dirname + "original" + ".pickle"
-		with open(save_file_name, 'wb') as handle:
-			pickle.dump(dict_, handle, protocol=pickle.HIGHEST_PROTOCOL)
+		return dict_
 
 	def classwise_separation(self, l_ds):
 		separation = {}
