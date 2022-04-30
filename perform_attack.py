@@ -27,8 +27,9 @@ class AttackedModel(oa.Classifier):
 		self.model = loaded_model
 		self.tokenizer = tokenizer
 
-	def get_both_pred_and_prob(self, input_):
+	def get_both_pred_and_prob(self, *input_):
 		# input_ is generally a list of strings, each string being a sentence
+		input_ = input_[0]
 		with torch.no_grad():
 			all_probs = []
 			all_preds = []
@@ -43,7 +44,7 @@ class AttackedModel(oa.Classifier):
 				for key, val in current_inp.items():
 					current_inp[key] = current_inp[key].cuda()
 
-				outs = model(**current_inp)['logits']
+				outs = self.model(**current_inp)['logits']
 				probs = F.softmax(outs, dim=1)
 				all_probs.append(probs)
 				label = torch.argmax(probs, dim=1)
@@ -53,8 +54,9 @@ class AttackedModel(oa.Classifier):
 			all_preds = torch.cat(all_preds, dim=0)
 			return all_probs.cpu().numpy(), all_preds.cpu().numpy()
 
-	def get_prob(self, input_):
+	def get_prob(self, *input_):
 		# input_ is generally a list of strings, each string being a sentence
+		input_ = input_[0]
 		with torch.no_grad():
 			all_probs = []
 			num_iters = math.ceil(len(input_) / self.args.eval_bs)
@@ -67,13 +69,14 @@ class AttackedModel(oa.Classifier):
 				for key, val in current_inp.items():
 					current_inp[key] = current_inp[key].cuda()
 
-				outs = model(**current_inp)['logits']
+				outs = self.model(**current_inp)['logits']
 				probs = F.softmax(outs, dim=1)
 				all_probs.append(probs)
 			all_probs = torch.cat(all_probs, dim=0)
 			return all_probs.cpu().numpy()
 
-	def get_pred(self, input_):
+	def get_pred(self, *input_):
+		input_ = input_[0]
 		with torch.no_grad():
 			all_preds = []
 			num_iters = math.ceil(len(input_) / self.args.eval_bs)
@@ -87,7 +90,7 @@ class AttackedModel(oa.Classifier):
 				for key, val in current_inp.items():
 					current_inp[key] = current_inp[key].cuda()
 
-				outs = model(**current_inp)['logits']
+				outs = self.model(**current_inp)['logits']
 				probs = F.softmax(outs, dim=1)
 				label = torch.argmax(probs, dim=1)
 				all_preds.append(label)
