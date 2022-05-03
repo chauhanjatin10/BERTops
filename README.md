@@ -1,6 +1,6 @@
 # BERTops
 Source code for the paper [BERTops: Studying BERT Representations under a
-Topological Lens]() accepted at [IJCNN 2022](https://wcci2022.org/call-for-papers/) as on **Oral** Presentation.
+Topological Lens]() accepted at [IJCNN 2022](https://wcci2022.org/call-for-papers/) as an **Oral** Presentation. [Arxiv Link](https://arxiv.org/abs/2205.00953)
 
 ## Usage
 
