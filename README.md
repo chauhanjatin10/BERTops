@@ -39,5 +39,14 @@ python perform_attack.py --dataset_name sst-2 --base_model bert --model_card ech
 If you find this repository helpful, please consider citing our work:
 
 ```BibTeX
-
+@article{https://doi.org/10.48550/arxiv.2205.00953,
+  doi = {10.48550/ARXIV.2205.00953},
+  url = {https://arxiv.org/abs/2205.00953},
+  author = {Chauhan, Jatin and Kaul, Manohar},
+  keywords = {Machine Learning (cs.LG), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  title = {BERTops: Studying BERT Representations under a Topological Lens},
+  publisher = {arXiv},
+  year = {2022},
+  copyright = {Creative Commons Attribution 4.0 International}
+}
 ```
